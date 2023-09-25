@@ -1,15 +1,11 @@
 import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+import java.io.*;
+import java.util.HashMap;
 
 %%
 %class Scanner
 %cup
-
-%{
-// Importar las clases generadas por CUP
-import java_cup.runtime.Symbol;
-import java.io.*;
-import java.util.HashMap;
-%}
 
 %{
 // Tabla de símbolos para almacenar información de los tokens
