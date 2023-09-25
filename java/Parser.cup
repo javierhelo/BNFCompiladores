@@ -1,0 +1,196 @@
+import java_cup.runtime.*;
+
+/* Clases generadas por JFlex */
+%cup
+import java.io.IOException;
+
+/* Declaraciones de tokens generadas por JFlex */
+%token INTEGER_TYPE
+%token FLOAT_TYPE
+%token BOOLEAN_TYPE
+%token CHAR_TYPE
+%token STRING_TYPE
+%token GLOBAL_TYPE
+%token ID
+%token INT_LITERAL
+%token FLOAT_LITERAL
+%token CHAR_LITERAL
+%token STRING_LITERAL
+%token TRUE_LITERAL
+%token FALSE_LITERAL
+%token PLUS
+%token MINUS
+%token MULTIPLY
+%token DIVIDE
+%token MODULUS
+%token POWER
+%token INCREMENT
+%token DECREMENT
+%token AND_OPERATOR
+%token OR_OPERATOR
+%token NOT_OPERATOR
+%token BOOL_EQUAL
+%token EQUAL
+%token NOT_EQUAL
+%token LESS_THAN
+%token LESS_THAN_OR_EQUAL
+%token GREATER_THAN
+%token GREATER_THAN_OR_EQUAL
+%token COMMA
+%token SEMICOLON
+%token LEFT_PARENTHESIS
+%token RIGHT_PARENTHESIS
+%token LEFT_BRACE
+%token RIGHT_BRACE
+%token IF_KEYWORD
+%token ELSE_KEYWORD
+%token WHILE_KEYWORD
+%token FOR_KEYWORD
+%token SWITCH_KEYWORD
+%token CASE_KEYWORD
+%token DEFAULT_KEYWORD
+%token BREAK_KEYWORD
+%token RETURN_KEYWORD
+%token READ_INTEGER_FUNCTION
+%token READ_FLOAT_FUNCTION
+%token WRITE_FUNCTION
+%token SPACE
+%token COMMENT_LINE
+%token COMMENT_BLOCK_START
+%token COMMENT_BLOCK_END
+
+/* Operadores */
+precedence left AND_OPERATOR, OR_OPERATOR
+precedence left EQUAL, NOT_EQUAL, BOOL_EQUAL
+precedence left LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL
+precedence left PLUS, MINUS
+precedence left MULTIPLY, DIVIDE, MODULUS, POWER
+precedence left INCREMENT, DECREMENT
+precedence right NOT_OPERATOR
+
+/* Producciones */
+start with program;
+
+/* Producciones */
+program ::= function main_function_declaration
+
+function ::= return_type space id left_parenthesis parameter_list right_parenthesis left_brace statement_list right_brace semicolon
+
+main_function_declaration ::= return_type space main_keyword left_parenthesis right_parenthesis left_brace statement_list right_brace semicolon
+
+return_type ::= integer_type | float_type | boolean_type | char_type | string_type
+
+parameter_list ::= parameter | parameter comma parameter_list
+
+parameter ::= return_type id
+
+statement_list ::= statement | statement statement_list
+
+statement ::= variable_declaration
+           | assignment_statement
+           | if_statement
+           | else_statement
+           | while_statement
+           | for_statement
+           | switch_statement
+           | case_list default_case
+           | expression_statement
+           | return_statement
+           | break_statement
+
+variable_declaration ::= return_type space id semicolon
+
+variable_declaration ::= return_type space id equal term semicolon
+
+global_variable_dec ::= global_type space id semicolon
+
+global_variable_dec ::= global_type space id equal term
+
+assignment_statement ::= id equal expression semicolon
+
+if_statement ::= if_keyword left_parenthesis expression right_parenthesis left_brace statement_list right_brace
+
+else_statement ::= else_keyword left_brace statement_list right_brace | ε
+
+while_statement ::= while_keyword left_parenthesis expression right_parenthesis left_brace statement_list right_brace
+
+for_statement ::= for_keyword left_parenthesis variable_declaration expression semicolon expression right_parenthesis left_brace statement_list right_brace
+
+switch_statement ::= switch_keyword left_parenthesis expression right_parenthesis left_brace case_list default_case right_brace
+
+case_list ::= case_statement case_list | ε
+
+case_statement ::= case_keyword int_literal colon statement_list
+
+default_case ::= default_keyword colon statement_list | ε
+
+expression_statement ::= expression semicolon
+
+return_statement ::= return_keyword expression semicolon
+
+break_statement ::= break_keyword semicolon
+
+expression ::= logical_expression
+
+logical_expression ::= logical_term | logical_expression or_operator logical_term
+
+logical_term ::= logical_factor | logical_term and_operator logical_factor
+
+logical_factor ::= not_operator comparison | comparison
+
+comparison ::= additive_expression | additive_expression equal additive_expression | additive_expression not_equal additive_expression | additive_expression less_than additive_expression | additive_expression less_than_or_equal additive_expression | additive_expression greater_than additive_expression | additive_expression greater_than_or_equal additive_expression
+
+additive_expression ::= multiplicative_expression | additive_expression plus multiplicative_expression | additive_expression minus multiplicative_expression
+
+multiplicative_expression ::= unary_expression | multiplicative_expression multiply unary_expression | multiplicative_expression divide unary_expression | multiplicative_expression modulus unary_expression | multiplicative_expression power unary_expression
+
+unary_expression ::= primary_expression | plus primary_expression | minus primary_expression | increment id | decrement id | id increment | id decrement
+
+primary_expression ::= id | int_literal | float_literal | char_literal | string_literal | true_literal | false_literal | left_parenthesis expression right_parenthesis | function_call
+
+function_call ::= id left_parenthesis argument_list right_parenthesis
+
+argument_list ::= expression | expression comma argument_list | ε
+
+comment ::= commentLine string_literal | commentBlockStart string_literal* commentBlockEnd
+
+read ::= read_integer_function left_parenthesis int_literal right_parenthesis semicolon | read_float_function left_parenthesis float_literal right_parenthesis semicolon
+
+write ::= write_function left_parenthesis io_argument right_parenthesis semicolon
+
+io_argument ::= string_literal | int_literal | float_literal | id
+
+/* No Terminales adicionales */
+operand ::= int | float | id
+
+returnType ::= "int" | "float" | "bool" | "char" | "string"
+
+block ::= leftBrace statementList rightBrace
+
+statementList ::= statement | statement statementList
+
+statement ::= declaration | assignment | condition | forLoop | whileLoop | returnStatement | breakStatement | expression semicolon
+
+declaration ::= returnType space id semicolon
+
+assignment ::= id equal expression semicolon | id decrement | id increment
+
+expression ::= term | expression operador term
+
+term ::= int_literal | float_literal | id | left_parenthesis expression right_parenthesis
+
+IfStatement ::= if_keyword left_parenthesis expression right_parenthesis block elseBlock
+
+elseBlock ::= else_keyword block | ε
+
+forLoop ::= for_keyword left_parenthesis declaration expression semicolon expression right_parenthesis block
+
+whileLoop ::= while_keyword left_parenthesis expression right_parenthesis block
+
+term ::= int_literal | float_literal | id | left_parenthesis expression right_parenthesis
+
+condition ::= ifStatement | ifStatement elseBlock statements
+
+loop ::= forLoop | whileLoop
+
+elseBlock ::= "else" block | ε
