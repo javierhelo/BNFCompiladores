@@ -1,6 +1,8 @@
+package jflex;
 import java_cup.runtime.*;
-import java_cup.runtime.Symbol;
 import java.io.IOException;
+
+action code {:  :}
 
 
 terminal integer_type, float_type, boolean_type, char_type, string_type, global_type, id;
@@ -13,6 +15,10 @@ terminal IF_KEYWORD, ELSE_KEYWORD, WHILE_KEYWORD, FOR_KEYWORD, SWITCH_KEYWORD, C
 terminal BREAK_KEYWORD, RETURN_KEYWORD, READ_INTEGER_FUNCTION, READ_FLOAT_FUNCTION, WRITE_FUNCTION;
 terminal SPACE, COMMENT_LINE, COMMENT_BLOCK_START, COMMENT_BLOCK_END;
 
+/* No Terminales */
+nonterminal operand, returnType, block, statementList, statement, declaration,
+    assignment, expression, term, IfStatement, elseBlock, forLoop, whileLoop,
+    condition, loop;
 
 /* Clases generadas por JFlex */
 
