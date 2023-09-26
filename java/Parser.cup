@@ -1,10 +1,23 @@
 import java_cup.runtime.*;
-
-/* Clases generadas por JFlex */
-%cup
+import java_cup.runtime.Symbol;
 import java.io.IOException;
 
+
+terminal integer_type, float_type, boolean_type, char_type, string_type, global_type, id;
+terminal int_literal, float_literal, char_literal, string_literal, true_literal, false_literal;
+terminal PLUS, MINUS, TIMES, DIVIDE, MODULUS, POWER;
+terminal INCREMENT, DECREMENT, AND_OPERATOR, OR_OPERATOR, NOT_OPERATOR;
+terminal BOOL_EQUAL, EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL;
+terminal COMMA, SEMICOLON, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_BRACE, RIGHT_BRACE;
+terminal IF_KEYWORD, ELSE_KEYWORD, WHILE_KEYWORD, FOR_KEYWORD, SWITCH_KEYWORD, CASE_KEYWORD, DEFAULT_KEYWORD;
+terminal BREAK_KEYWORD, RETURN_KEYWORD, READ_INTEGER_FUNCTION, READ_FLOAT_FUNCTION, WRITE_FUNCTION;
+terminal SPACE, COMMENT_LINE, COMMENT_BLOCK_START, COMMENT_BLOCK_END;
+
+
+/* Clases generadas por JFlex */
+
 /* Declaraciones de tokens generadas por JFlex */
+%cup
 %token INTEGER_TYPE
 %token FLOAT_TYPE
 %token BOOLEAN_TYPE
