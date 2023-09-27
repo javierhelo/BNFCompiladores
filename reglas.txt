@@ -4,3 +4,59 @@ identificador = [a-zA-z_] [a-zA-Z0-9_]*
 float = [0-9] \. [0.9]*
 
 
+/* Clases generadas por JFlex */
+/* Declaraciones de tokens generadas por JFlex */
+%cup
+%token INTEGER_TYPE
+%token FLOAT_TYPE
+%token BOOLEAN_TYPE
+%token CHAR_TYPE
+%token STRING_TYPE
+%token GLOBAL_TYPE
+%token ID
+%token INT_LITERAL
+%token FLOAT_LITERAL
+%token CHAR_LITERAL
+%token STRING_LITERAL
+%token TRUE_LITERAL
+%token FALSE_LITERAL
+%token PLUS
+%token MINUS
+%token MULTIPLY
+%token DIVIDE
+%token MODULUS
+%token POWER
+%token INCREMENT
+%token DECREMENT
+%token AND_OPERATOR
+%token OR_OPERATOR
+%token NOT_OPERATOR
+%token BOOL_EQUAL
+%token EQUAL
+%token NOT_EQUAL
+%token LESS_THAN
+%token LESS_THAN_OR_EQUAL
+%token GREATER_THAN
+%token GREATER_THAN_OR_EQUAL
+%token COMMA
+%token SEMICOLON
+%token LEFT_PARENTHESIS
+%token RIGHT_PARENTHESIS
+%token LEFT_BRACE
+%token RIGHT_BRACE
+%token IF_KEYWORD
+%token ELSE_KEYWORD
+%token WHILE_KEYWORD
+%token FOR_KEYWORD
+%token SWITCH_KEYWORD
+%token CASE_KEYWORD
+%token DEFAULT_KEYWORD
+%token BREAK_KEYWORD
+%token RETURN_KEYWORD
+%token READ_INTEGER_FUNCTION
+%token READ_FLOAT_FUNCTION
+%token WRITE_FUNCTION
+%token SPACE
+%token COMMENT_LINE
+%token COMMENT_BLOCK_START
+%token COMMENT_BLOCK_END
