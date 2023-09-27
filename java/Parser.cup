@@ -4,7 +4,7 @@ import java.io.IOException;
 
 parser code {:
     Scanner s;
-    Parser(Scanner, s) ;{
+    Parser(Scanner, s);{
      this.s = s;
     }
  :}
@@ -13,8 +13,8 @@ init with {: s.init(); :};
 
 scan with {: return s.next_token(); :};
 
-terminal integer_type, float_type, boolean_type, char_type, string_type, global_type, id;
-terminal int_literal, float_literal, char_literal, string_literal, true_literal, false_literal;
+terminal INTEGER_TYPE, FLOAT_TYPE, BOOLEAN_TYPE, CHAR_TYPE, STRING_TYPE, GLOBAL_TYPE, ID;
+terminal INT_LITERAL, FLOAT_LITERAL, CHAR_LITERAL, STRING_LITERAL, TRUE_LITERAL, FALSE_LITERAL;
 terminal PLUS, MINUS, TIMES, DIVIDE, MODULUS, POWER;
 terminal INCREMENT, DECREMENT, AND_OPERATOR, OR_OPERATOR, NOT_OPERATOR;
 terminal BOOL_EQUAL, EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL;
@@ -44,20 +44,24 @@ start with program;
 /* Producciones */
 program ::= function main_function_declaration ;
 
-function ::= return_type space id left_parenthesis parameter_list right_parenthesis left_brace statement_list right_brace semicolon;
+function ::= returnType SPACE ID LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON;
 
-main_function_declaration ::= return_type space main_keyword left_parenthesis right_parenthesis left_brace statement_list right_brace semicolon;
+main_function_declaration ::= returnTypeype SPACE main_keyword LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON;
 
-return_type ::= integer_type | float_type | boolean_type | char_type | string_type;
+return_type ::= INTEGER_TYPE
+                | FLOAT_TYPE
+                | BOOLEAN_TYPE
+                | CHAR_TYPE
+                | STRING_TYPE;
 
-parameter_list ::= parameter | parameter comma parameter_list;
+parameter_list ::= parameter | parameter COMMA parameter_list;
 
-parameter ::= return_type id;
+parameter ::= returnType ID;
 
 statement_list ::= statement | statement statement_list;
 
 statement ::= variable_declaration
-           | assignment_statement
+           |
            | if_statement
            | else_statement
            | while_statement
@@ -70,66 +74,18 @@ statement ::= variable_declaration
 
 
 
-variable_declaration ::= return_type space id semicolon;
+variable_declaration ::= returnType SPACE ID SEMICOLON;
 
-variable_declaration ::= return_type space id equal term semicolon;
+variable_declaration ::= returnType SPACE ID EQUAL term SEMICOLON;
 
-global_variable_dec ::= global_type space id semicolon;
+global_variable_dec ::= GLOBAL_TYPE SPACE ID SEMICOLON;
 
-global_variable_dec ::= global_type space id equal term;
+global_variable_dec ::= GLOBAL_TYPE SPACE ID EQUAL term;
 
-assignment_statement ::= id equal expression semicolon;
+assignment_statement ::= ID EQUAL expression SEMICOLON;
 
-if_statement ::= if_keyword left_parenthesis expression right_parenthesis left_brace statement_list right_brace;
+if_statement ::= IF_KEYWORD LEFT_PARENTHESIS expression RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE;
 
-else_statement ::= else_keyword left_brace statement_list right_brace | ε;
 
-while_statement ::= while_keyword left_parenthesis expression right_parenthesis left_brace statement_list right_brace;
-
-for_statement ::= for_keyword left_parenthesis variable_declaration expression semicolon expression right_parenthesis left_brace statement_list right_brace;
-
-switch_statement ::= switch_keyword left_parenthesis expression right_parenthesis left_brace case_list default_case right_brace;
-
-case_list ::= case_statement case_list | ε;
-
-case_statement ::= case_keyword int_literal colon statement_list;
-
-default_case ::= default_keyword colon statement_list | ε;
-
-expression_statement ::= expression semicolon;
-
-return_statement ::= return_keyword expression semicolon;
-
-break_statement ::= break_keyword semicolon;
-
-expression ::= logical_expression;
-
-logical_expression ::= logical_term | logical_expression or_operator logical_term;
-
-logical_term ::= logical_factor | logical_term and_operator logical_factor;
-
-logical_factor ::= not_operator comparison | comparison;
-
-comparison ::= additive_expression | additive_expression equal additive_expression | additive_expression not_equal additive_expression | additive_expression less_than additive_expression | additive_expression less_than_or_equal additive_expression | additive_expression greater_than additive_expression | additive_expression greater_than_or_equal additive_expression;
-
-additive_expression ::= multiplicative_expression | additive_expression plus multiplicative_expression | additive_expression minus multiplicative_expression;
-
-multiplicative_expression ::= unary_expression | multiplicative_expression multiply unary_expression | multiplicative_expression divide unary_expression | multiplicative_expression modulus unary_expression | multiplicative_expression power unary_expression;
-
-unary_expression ::= primary_expression | plus primary_expression | minus primary_expression | increment id | decrement id | id increment | id decrement;
-
-primary_expression ::= id | int_literal | float_literal | char_literal | string_literal | true_literal | false_literal | left_parenthesis expression right_parenthesis | function_call;
-
-function_call ::= id left_parenthesis argument_list right_parenthesis;
-
-argument_list ::= expression | expression comma argument_list | ε;
-
-comment ::= commentLine string_literal | commentBlockStart string_literal* commentBlockEnd;
-
-read ::= read_integer_function left_parenthesis int_literal right_parenthesis semicolon | read_float_function left_parenthesis float_literal right_parenthesis semicolon;
-
-write ::= write_function left_parenthesis io_argument right_parenthesis semicolon;
-
-io_argument ::= string_literal | int_literal | float_literal | id;
 
 
