@@ -15,7 +15,7 @@ scan with {: return s.next_token(); :};
 
 terminal INTEGER_TYPE, FLOAT_TYPE, BOOLEAN_TYPE, CHAR_TYPE, STRING_TYPE, GLOBAL_TYPE, ID;
 terminal INT_LITERAL, FLOAT_LITERAL, CHAR_LITERAL, STRING_LITERAL, TRUE_LITERAL, FALSE_LITERAL;
-terminal PLUS, MINUS, TIMES, DIVIDE, MODULUS, POWER;
+terminal PLUS, MINUS, MULTIPLY, DIVIDE, MODULUS, POWER;
 terminal INCREMENT, DECREMENT, AND_OPERATOR, OR_OPERATOR, NOT_OPERATOR;
 terminal BOOL_EQUAL, EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL;
 terminal COMMA, SEMICOLON, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, LEFT_BRACE, RIGHT_BRACE;
@@ -42,13 +42,11 @@ precedence right NOT_OPERATOR;
 start with program;
 
 /* Producciones */
-program ::= function main_function_declaration ;
+block ::= block expression:e SEMICOLON {: System.out.println(e);:}
+            | expression:e SEMICOLON {: System.out.println(e);:}
+            ;
 
-function ::= returnType SPACE ID LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON;
-
-main_function_declaration ::= returnTypeype SPACE main_keyword LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON;
-
-return_type ::= INTEGER_TYPE
+returnType ::= INTEGER_TYPE
                 | FLOAT_TYPE
                 | BOOLEAN_TYPE
                 | CHAR_TYPE
@@ -61,7 +59,7 @@ parameter ::= returnType ID;
 statement_list ::= statement | statement statement_list;
 
 statement ::= variable_declaration
-           |
+           | assignment_statement
            | if_statement
            | else_statement
            | while_statement
@@ -85,6 +83,117 @@ global_variable_dec ::= GLOBAL_TYPE SPACE ID EQUAL term;
 assignment_statement ::= ID EQUAL expression SEMICOLON;
 
 if_statement ::= IF_KEYWORD LEFT_PARENTHESIS expression RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE;
+
+else_statement ::= ELSE_KEYWORD LEFT_BRACE statement_list RIGHT_BRACE
+               | /* empty production (epsilon) */
+               ;
+
+while_statement ::= WHILE_KEYWORD LEFT_PARENTHESIS expression RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE;
+
+for_statement ::= FOR_KEYWORD LEFT_PARENTHESIS variable_declaration expression SEMICOLON expression RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE;
+
+switch_statement ::= SWITCH_KEYWORD LEFT_PARENTHESIS expression RIGHT_PARENTHESIS LEFT_BRACE case_list default_case RIGHT_BRACE;
+
+case_list ::= case_statement case_list |/*Epsilon*/ ;
+
+/* colon might be bad*/
+case_statement ::= CASE_KEYWORD INT_LITERAL statement_list;
+
+default_case ::= DEFAULT_KEYWORD  statement_list | ;
+
+expression_statement ::= expression SEMICOLON;
+
+return_statement ::= RETURN_KEYWORD expression SEMICOLON;
+
+break_statement ::= BREAK_KEYWORD SEMICOLON;
+
+expression ::= logical_expression;
+
+logical_expression ::= logical_term | logical_expression OR_OPERATOR logical_term;
+
+logical_term ::= logical_factor | logical_term AND_OPERATOR logical_factor;
+
+logical_factor ::= NOT_OPERATOR | comparison;
+
+comparison ::= additive_expression
+                | additive_expression EQUAL additive_expression
+                | additive_expression NOT_EQUAL additive_expression
+                | additive_expression LESS_THAN additive_expression
+                | additive_expression LESS_THAN_OR_EQUAL additive_expression
+                | additive_expression GREATER_THAN additive_expression
+                | additive_expression GREATER_THAN_OR_EQUAL additive_expression
+                ;
+
+additive_expression ::= multiplicative_expression
+                        | additive_expression PLUS multiplicative_expression
+                        | additive_expression MINUS multiplicative_expression
+                        ;
+
+multiplicative_expression ::= unary_expression
+                        | multiplicative_expression MULTIPLY unary_expression
+                        | multiplicative_expression DIVIDE unary_expression
+                        | multiplicative_expression MODULUS unary_expression
+                        | multiplicative_expression POWER unary_expression
+                        ;
+
+
+
+unary_expression ::= primary_expression
+                        | PLUS primary_expression
+                        | MINUS primary_expression
+                        | INCREMENT ID
+                        | DECREMENT ID
+                        | ID INCREMENT
+                        | ID DECREMENT
+                        ;
+
+primary_expression ::= ID
+                        | INT_LITERAL
+                        | FLOAT_LITERAL
+                        | CHAR_LITERAL
+                        | STRING_LITERAL
+                        | TRUE_LITERAL
+                        | FALSE_LITERAL
+                        | LEFT_PARENTHESIS expression RIGHT_PARENTHESIS
+                        | function_call
+                        ;
+
+
+function_call ::= ID LEFT_PARENTHESIS argument_list RIGHT_PARENTHESIS; // Cumple con A (Permitir la creación de funciones)
+
+argument_list ::= expression | expression comma argument_list | /*Podria venir vacía*/; // Cumple con A (Permitir sentencias de código)
+
+
+comment ::= COMMENT_LINE STRING_LITERAL
+                        | COMMENT_BLOCK_START STRING_LITERAL COMMENT_BLOCK_END
+                        ;
+
+read ::= READ_INTEGER_FUNCTION LEFT_PARENTHESIS INT_LITERAL RIGHT_PARENTHESIS SEMICOLON
+                        | READ_FLOAT_FUNCTION LEFT_PARENTHESIS FLOAT_LITERAL RIGHT_PARENTHESIS SEMICOLON
+                        ;
+
+write ::= WRITE_FUNCTION LEFT_PARENTHESIS io_argument RIGHT_PARENTHESIS SEMICOLON;
+
+io_argument ::= STRING_LITERAL | INT_LITERAL | FLOAT_LITERAL | ID;
+
+
+
+/*Declaracion del main/start with */
+function ::= returnType SPACE ID LEFT_PARENTHESIS parameter_list RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON
+                | returnType SPACE ID LEFT_PARENTHESIS  RIGHT_PARENTHESIS LEFT_BRACE statement_list RIGHT_BRACE SEMICOLON
+                ;
+
+functions ::= functions function
+                {:System.out.println("fin de función");:}
+                | function
+                {:System.out.println("fin de función");:}
+                ;
+
+program ::= global_variable_dec functions
+            {:System.out.println("Fin de ejecución");:}
+            ;
+
+
 
 
 
