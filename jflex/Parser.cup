@@ -1,4 +1,4 @@
-import gen.Scanner;
+import Scanner;
 import java_cup.runtime.*;
 import java.io.IOException;
 
@@ -76,9 +76,9 @@ variable_declaration ::= returnType SPACE ID SEMICOLON;
 
 variable_declaration ::= returnType SPACE ID EQUAL term SEMICOLON;
 
-global_variable_dec ::= GLOBAL_TYPE SPACE ID SEMICOLON;
+global_variable_dec ::= GLOBAL_TYPE SPACE returnType SPACE ID SEMICOLON;
 
-global_variable_dec ::= GLOBAL_TYPE SPACE ID EQUAL term;
+global_variable_dec ::= GLOBAL_TYPE SPACE returnType ID EQUAL term;
 
 assignment_statement ::= ID EQUAL expression SEMICOLON;
 
