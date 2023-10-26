@@ -70,7 +70,7 @@ variable_declaration ::= returnType SPACE ID EQUAL term SEMICOLON;
 
 global_variable_dec ::= GLOBAL_TYPE SPACE returnType SPACE ID SEMICOLON;
 
-global_variable_dec ::= GLOBAL_TYPE SPACE returnType ID EQUAL term SEMICOLON;
+global_variable_dec ::= GLOBAL_TYPE SPACE returnType ID EQUAL term;
 
 assignment_statement ::= ID EQUAL expression SEMICOLON;
 
