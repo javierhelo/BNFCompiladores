@@ -24,9 +24,14 @@ terminal BREAK_KEYWORD, RETURN_KEYWORD, READ_INTEGER_FUNCTION, READ_FLOAT_FUNCTI
 terminal SPACE, COMMENT_LINE, COMMENT_BLOCK_START, COMMENT_BLOCK_END;
 
 /* No Terminales */
-nonterminal operand, returnType, block, statementList, statement, declaration,
-    assignment, expression, term, IfStatement, elseBlock, forLoop, whileLoop,
-    condition, loop;
+nonterminal operand, returnType, block, statement_list, statement, declaration,
+    assignment, expression, term, if_statement, elseBlock, forLoop, whileLoop,
+    condition, loop, program, parameter, parameter_list, variable_declaration, assignment_statement, else_statement,
+    while_statement, for_statement, switch_statement, case_list, default_case, expression_statement,
+    return_statement, break_statement, global_variable_dec, case_statement, logical_expression, 
+    logical_term, logical_factor, comparison, additive_expression, multiplicative_expression, unary_expression,
+    primary_expression, function_call, argument_list, comma, comment, read, write, io_argument, function, functions;
+
 
 
 /* Operadores */
